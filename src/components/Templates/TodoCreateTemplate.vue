@@ -1,9 +1,12 @@
 <script setup>
 import { inject } from 'vue'
+import { useRouter } from 'vue-router'
 import BaseLayout from '../Organisms/BaseLayout.vue'
 import InputForm from '../Atoms/InputForm.vue'
 import TextArea from '../Atoms/TextArea.vue'
 import CommonButton from '../Atoms/CommonButton.vue'
+
+const router = useRouter()
 
 const handleAddTodo = inject('handleAddTodo')
 
@@ -11,11 +14,12 @@ const handleSubmitAddTodo = (e) => {
   e.preventDefault()
   const formElements = e.target.elements
   handleAddTodo(formElements.title.value, formElements.content.value)
+  router.push('/')
 }
 </script>
 
 <template>
-  <BaseLayout title="Create TODO">
+  <BaseLayout title="Create Todo">
     <form class="container" @submit.prevent="handleSubmitAddTodo">
       <div class="area">
         <InputForm name="title" placeholder="Title" />
