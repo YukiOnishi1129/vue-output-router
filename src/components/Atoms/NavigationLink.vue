@@ -4,7 +4,7 @@ defineProps({
     type: String,
     required: true
   },
-  linkPath: {
+  path: {
     type: String,
     required: true
   }
@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <li class="li">
-    <router-link to="linkPath">
+    <router-link :to="path">
       {{ title }}
     </router-link>
   </li>

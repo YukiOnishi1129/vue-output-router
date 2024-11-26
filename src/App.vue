@@ -5,6 +5,6 @@ import TodoProvider from './providers/TodoProvider.vue'
 
 <template>
   <TodoProvider>
-    <TodoCreatePage />
+    <router-view />
   </TodoProvider>
 </template>

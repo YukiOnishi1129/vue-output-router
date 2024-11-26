@@ -1,13 +1,16 @@
 <script setup>
 import NavigationLink from '../Atoms/NavigationLink.vue'
 import { NAVIGATION_PATH } from '../../constants/navigation'
+
+const top = NAVIGATION_PATH.TOP
+const create = NAVIGATION_PATH.CREATE
 </script>
 
 <template>
   <nav>
-    <ul className="{styles.ul}">
-      <NavigationLink :title="Top" :link-path="NAVIGATION_PATH.TOP" />
-      <NavigationLink :title="Create" :link-path="NAVIGATION_PATH.CREATE" />
+    <ul class="ul">
+      <NavigationLink title="Top" :path="top" />
+      <NavigationLink title="Create" :path="create" />
     </ul>
   </nav>
 </template>
