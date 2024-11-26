@@ -1,8 +1,12 @@
 <script setup>
 defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   modelValue: {
     type: String,
-    required: true
+    default: ''
   },
   name: {
     type: String,
@@ -10,11 +14,7 @@ defineProps({
   },
   placeholder: {
     type: String,
-    required: true
-  },
-  onKeydown: {
-    type: Function,
-    required: true
+    default: ''
   }
 })
 
@@ -22,20 +22,12 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <input
-    type="text"
-    class="input"
-    :name="name"
-    :placeholder="placeholder"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
-    @keydown="onKeydown"
-  />
+  <textarea :disabled="disabled" class="text" :name="name" :value="modalValue" :placeholder="placeholder" />
 </template>
 
 <style scoped>
-.input {
-  color: white;
+.text {
+  color: #fff;
   border: none;
   background: rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -45,9 +37,11 @@ defineEmits(['update:modelValue'])
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
   border-radius: 5px;
+  resize: none;
+  min-height: 100px;
 }
 
-.input::placeholder {
+.text::placeholder {
   color: #c0c0c0;
 }
 </style>

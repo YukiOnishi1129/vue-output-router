@@ -3,7 +3,6 @@ import { INIT_TODO_LIST, INIT_UNIQUE_ID } from '../constants/data'
 
 export const useTodoProvider = () => {
   const originTodoList = ref(INIT_TODO_LIST)
-  const addInputValue = ref('')
   const uniqueId = ref(INIT_UNIQUE_ID)
   const searchKeyword = ref('')
 
@@ -16,18 +15,17 @@ export const useTodoProvider = () => {
     })
   })
 
-  const handleAddTodo = (e) => {
-    if (e.key === 'Enter' && addInputValue.value.trim() !== '') {
+  const handleAddTodo = (title, content) => {
+    if (title.trim() !== '' && content.trim() !== '') {
       const nextUniqueId = uniqueId.value + 1
       originTodoList.value.push({
         id: nextUniqueId,
-        title: addInputValue.value.trim()
+        title: title.trim(),
+        content: content.trim()
       })
 
       // 採番IDを更新
       uniqueId.value = nextUniqueId
-      // todo追加後、入力値をリセット
-      addInputValue.value = ''
     }
   }
 
@@ -42,7 +40,6 @@ export const useTodoProvider = () => {
 
   return {
     showTodoList,
-    addInputValue,
     searchKeyword,
     handleAddTodo,
     handleDeleteTodo

@@ -1,10 +1,10 @@
 <script setup>
-import TodoTemplate from '../components/Templates/TodoTemplate.vue'
+import TodoListTemplate from '../components/Templates/TodoListTemplate.vue'
 import TodoProvider from '../providers/TodoProvider.vue'
 </script>
 
 <template>
   <TodoProvider>
-    <TodoTemplate />
+    <TodoListTemplate />
   </TodoProvider>
 </template>

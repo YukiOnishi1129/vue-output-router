@@ -1,7 +1,10 @@
 <script setup>
-import TodoPage from './pages/TodoPage.vue'
+import TodoCreatePage from './pages/TodoCreatePage.vue'
+import TodoProvider from './providers/TodoProvider.vue'
 </script>
 
 <template>
-  <TodoPage />
+  <TodoProvider>
+    <TodoCreatePage />
+  </TodoProvider>
 </template>
