@@ -31,7 +31,7 @@ export const useTodoProvider = () => {
 
   const handleUpdateTodo = (targetId, title, content) => {
     originTodoList.value = originTodoList.value.map((todo) => {
-      if (String(todo.id) === targetId) {
+      if (String(todo.id) === String(targetId)) {
         return {
           ...todo,
           title: title.trim(),

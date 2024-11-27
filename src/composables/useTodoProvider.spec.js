@@ -1,74 +1,87 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useTodoProvider } from './useTodoProvider'
+import { INIT_TODO_LIST, INIT_UNIQUE_ID } from '../constants/data'
 
 describe('useTodoProvider', () => {
   let todoProvider
 
   beforeEach(() => {
     todoProvider = useTodoProvider()
+    // 初期化
+    todoProvider.originTodoList.value = [...INIT_TODO_LIST]
+    todoProvider.searchKeyword.value = ''
   })
 
-  describe('showTodoList', () => {
-    it('検索キーワードが空の場合、全てのTodoを返す', () => {
-      todoProvider.searchKeyword.value = ''
-      expect(todoProvider.showTodoList.value.length).toBe(2) // INIT_TODO_LISTの初期値による
-    })
-
-    it('検索キーワードに一致するTodoのみを返す', () => {
-      todoProvider.searchKeyword.value = 'Todo1'
-      expect(todoProvider.showTodoList.value.length).toBe(1)
-      expect(todoProvider.showTodoList.value[0].title).toContain('Todo1')
-    })
+  it('初期状態を確認する', () => {
+    expect(todoProvider.originTodoList.value).toEqual(INIT_TODO_LIST)
+    expect(todoProvider.searchKeyword.value).toBe('')
   })
 
-  describe('handleAddTodo', () => {
-    it('Enterキーで新しいTodoを追加できる', () => {
-      todoProvider.addInputValue.value = '新しいタスク'
-      todoProvider.handleAddTodo({ key: 'Enter' })
+  it('Todoを追加する', () => {
+    const newTitle = 'New Todo'
+    const newContent = 'New Content'
 
-      const lastTodo = todoProvider.showTodoList.value[todoProvider.showTodoList.value.length - 1]
-      expect(lastTodo.title).toBe('新しいタスク')
-      expect(todoProvider.addInputValue.value).toBe('') // 入力値がリセットされる
-    })
+    todoProvider.handleAddTodo(newTitle, newContent)
 
-    it('空文字の場合は追加されない', () => {
-      const initialLength = todoProvider.showTodoList.value.length
-      todoProvider.addInputValue.value = '   '
-      todoProvider.handleAddTodo({ key: 'Enter' })
-
-      expect(todoProvider.showTodoList.value.length).toBe(initialLength)
-    })
+    const lastTodo = todoProvider.originTodoList.value.at(-1)
+    expect(todoProvider.originTodoList.value.length).toBe(INIT_TODO_LIST.length + 1)
+    expect(lastTodo.title).toBe(newTitle)
+    expect(lastTodo.content).toBe(newContent)
+    expect(lastTodo.id).toBe(INIT_UNIQUE_ID + 1)
   })
 
-  describe('handleDeleteTodo', () => {
-    it('確認後にTodoを削除できる', () => {
-      // window.confirmをモック化
-      const originalConfirm = window.confirm
-      window.confirm = () => true
+  it('検索キーワードでTodoをフィルタリングする', () => {
+    todoProvider.searchKeyword.value = 'Todo1'
 
-      const initialLength = todoProvider.showTodoList.value.length
-      const targetTodo = todoProvider.showTodoList.value[0]
+    const filteredTodos = todoProvider.showTodoList.value
 
-      todoProvider.handleDeleteTodo(targetTodo.id, targetTodo.title)
-      expect(todoProvider.showTodoList.value.length).toBe(initialLength - 1)
+    expect(filteredTodos.length).toBe(1)
+    expect(filteredTodos[0].title).toBe('Todo1')
+  })
 
-      // モックを元に戻す
-      window.confirm = originalConfirm
-    })
+  it('Todoを更新する', () => {
+    const targetId = INIT_TODO_LIST[0].id
+    const updatedTitle = 'Updated Title'
+    const updatedContent = 'Updated Content'
 
-    it('確認をキャンセルした場合、Todoは削除されない', () => {
-      // window.confirmをモック化
-      const originalConfirm = window.confirm
-      window.confirm = () => false
+    todoProvider.handleUpdateTodo(targetId, updatedTitle, updatedContent)
 
-      const initialLength = todoProvider.showTodoList.value.length
-      const targetTodo = todoProvider.showTodoList.value[0]
+    const updatedTodo = todoProvider.originTodoList.value.find((todo) => todo.id === targetId)
 
-      todoProvider.handleDeleteTodo(targetTodo.id, targetTodo.title)
-      expect(todoProvider.showTodoList.value.length).toBe(initialLength)
+    expect(updatedTodo).toBeDefined()
+    expect(updatedTodo.title).toBe(updatedTitle)
+    expect(updatedTodo.content).toBe(updatedContent)
+  })
 
-      // モックを元に戻す
-      window.confirm = originalConfirm
-    })
+  it('Todoを削除する (削除確認をモック)', () => {
+    const targetId = INIT_TODO_LIST[0].id
+    const targetTitle = INIT_TODO_LIST[0].title
+
+    // window.confirmをモック化
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
+
+    todoProvider.handleDeleteTodo(targetId, targetTitle)
+
+    expect(todoProvider.originTodoList.value.length).toBe(INIT_TODO_LIST.length - 1)
+    expect(todoProvider.originTodoList.value.find((todo) => todo.id === targetId)).toBeUndefined()
+
+    // モックをリストア
+    confirmSpy.mockRestore()
+  })
+
+  it('Todo削除をキャンセル (削除確認をモック)', () => {
+    const targetId = INIT_TODO_LIST[0].id
+    const targetTitle = INIT_TODO_LIST[0].title
+
+    // window.confirmをモック化
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false)
+
+    todoProvider.handleDeleteTodo(targetId, targetTitle)
+
+    expect(todoProvider.originTodoList.value.length).toBe(INIT_TODO_LIST.length)
+    expect(todoProvider.originTodoList.value.find((todo) => todo.id === targetId)).toBeDefined()
+
+    // モックをリストア
+    confirmSpy.mockRestore()
   })
 })
