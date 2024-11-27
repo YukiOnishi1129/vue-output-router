@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref } from 'vue'
+import { inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import BaseLayout from '../Organisms/BaseLayout.vue'
 import InputForm from '../Atoms/InputForm.vue'
