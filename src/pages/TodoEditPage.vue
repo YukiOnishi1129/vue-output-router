@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import TodoEditTemplate from '../components/Templates/TodoEditTemplate.vue'
+</script>
 
 <template>
-  <div />
+  <TodoEditTemplate />
 </template>
-
-<style scoped></style>

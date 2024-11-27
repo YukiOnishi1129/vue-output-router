@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import TodoDetailTemplate from '../components/Templates/TodoDetailTemplate.vue'
+</script>
 
 <template>
-  <div />
+  <TodoDetailTemplate />
 </template>
-
-<style scoped></style>

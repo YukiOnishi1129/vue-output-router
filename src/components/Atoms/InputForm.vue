@@ -1,5 +1,9 @@
 <script setup>
 defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   modelValue: {
     type: String,
     required: true
@@ -25,6 +29,7 @@ defineEmits(['update:modelValue'])
   <input
     type="text"
     class="input"
+    :disabled="disabled"
     :name="name"
     :placeholder="placeholder"
     :value="modelValue"
@@ -35,7 +40,7 @@ defineEmits(['update:modelValue'])
 
 <style scoped>
 .input {
-  color: white;
+  color: #fff;
   border: none;
   background: rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -45,6 +50,10 @@ defineEmits(['update:modelValue'])
   font-size: 20px;
   font-family: 'Times New Roman', Times, serif;
   border-radius: 5px;
+}
+
+.input:disabled {
+  color: #c0c0c0;
 }
 
 .input::placeholder {

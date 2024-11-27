@@ -22,7 +22,7 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <textarea :disabled="disabled" class="text" :name="name" :value="modalValue" :placeholder="placeholder" />
+  <textarea :disabled="disabled" class="text" :name="name" :value="modelValue" :placeholder="placeholder" />
 </template>
 
 <style scoped>
@@ -39,6 +39,10 @@ defineEmits(['update:modelValue'])
   border-radius: 5px;
   resize: none;
   min-height: 100px;
+}
+
+.text:disabled {
+  color: #c0c0c0;
 }
 
 .text::placeholder {
