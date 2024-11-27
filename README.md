@@ -41,7 +41,9 @@ npm run dev
 ### 2-2. 構成技術
 
 - vue: 3.5.10
+- vue-router: 4.5.0
 - vite: 5.4.8
+- vitest: 2.1.5
 - @fortawesome/fontawesome-svg-core: 6.6.0
 - @fortawesome/free-brands-svg-icons: 6.6.0
 - @fortawesome/free-regular-svg-icons: 6.6.0
