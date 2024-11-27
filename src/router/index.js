@@ -7,22 +7,22 @@ const router = createRouter({
     {
       path: `${NAVIGATION_LIST.TOP}`,
       name: 'home',
-      component: () => import('../components/Templates/TodoListTemplate.vue')
+      component: () => import('../pages/TodoListPage.vue')
     },
     {
       path: `${NAVIGATION_LIST.CREATE}`,
       name: 'create',
-      component: () => import('../components/Templates/TodoCreateTemplate.vue')
+      component: () => import('../pages/TodoCreatePage.vue')
     },
     {
       path: `${NAVIGATION_LIST.EDIT}`,
       name: 'edit',
-      component: () => import('../components/Templates/TodoEditTemplate.vue')
+      component: () => import('../pages/TodoEditPage.vue')
     },
     {
       path: `${NAVIGATION_LIST.DETAIL}`,
       name: 'detail',
-      component: () => import('../components/Templates/TodoDetailTemplate.vue')
+      component: () => import('../pages/TodoDetailPage.vue')
     }
   ]
 })
