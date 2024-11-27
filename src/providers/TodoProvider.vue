@@ -6,7 +6,6 @@ const {
   originTodoList,
   showTodoList,
   searchKeyword,
-  addInputValue,
   handleAddTodo,
   handleUpdateTodo,
   handleDeleteTodo
@@ -15,7 +14,6 @@ const {
 provide('originTodoList', originTodoList)
 provide('showTodoList', showTodoList)
 provide('searchKeyword', searchKeyword)
-provide('addInputValue', addInputValue)
 provide('handleAddTodo', handleAddTodo)
 provide('handleUpdateTodo', handleUpdateTodo)
 provide('handleDeleteTodo', handleDeleteTodo)
