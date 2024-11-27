@@ -1,25 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { NAVIGATION_LIST } from '../constants/navigation'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
+      path: `${NAVIGATION_LIST.TOP}`,
       name: 'home',
       component: () => import('../components/Templates/TodoListTemplate.vue')
     },
     {
-      path: '/create',
+      path: `${NAVIGATION_LIST.CREATE}`,
       name: 'create',
       component: () => import('../components/Templates/TodoCreateTemplate.vue')
     },
     {
-      path: '/edit/:id',
+      path: `${NAVIGATION_LIST.EDIT}`,
       name: 'edit',
       component: () => import('../components/Templates/TodoEditTemplate.vue')
     },
     {
-      path: '/detail/:id',
+      path: `${NAVIGATION_LIST.DETAIL}`,
       name: 'detail',
       component: () => import('../components/Templates/TodoDetailTemplate.vue')
     }

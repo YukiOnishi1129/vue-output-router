@@ -5,6 +5,7 @@ import BaseLayout from '../Organisms/BaseLayout.vue'
 import InputForm from '../Atoms/InputForm.vue'
 import TextArea from '../Atoms/TextArea.vue'
 import CommonButton from '../Atoms/CommonButton.vue'
+import { NAVIGATION_PATH } from '../../constants/navigation'
 
 const router = useRouter()
 
@@ -14,7 +15,7 @@ const handleSubmitAddTodo = (e) => {
   e.preventDefault()
   const formElements = e.target.elements
   handleAddTodo(formElements.title.value, formElements.content.value)
-  router.push('/')
+  router.push(`${NAVIGATION_PATH.TOP}`)
 }
 </script>
 

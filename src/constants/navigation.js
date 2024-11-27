@@ -1,7 +1,6 @@
-/**
- * ベースPATH
- * @type {string}
- */
+import { REPOSITORY_NAME } from '../config/config'
+
+export const BASE_PATH = process.env.NODE_ENV === 'production' ? `/${REPOSITORY_NAME}` : ''
 
 /**
  * リンク先一覧
@@ -9,10 +8,10 @@
  * @type {{TOP: string, CREATE: string, EDIT: string, DETAIL: string}}
  */
 export const NAVIGATION_LIST = {
-  TOP: `/`,
-  DETAIL: `/detail/:id`,
-  CREATE: `/create`,
-  EDIT: `/edit/:id`
+  TOP: `${BASE_PATH}/`,
+  DETAIL: `${BASE_PATH}/detail/:id`,
+  CREATE: `${BASE_PATH}/create`,
+  EDIT: `${BASE_PATH}/edit/:id`
 }
 
 /**
@@ -21,8 +20,8 @@ export const NAVIGATION_LIST = {
  * @type {{TOP: string, CREATE: string, EDIT: string, DETAIL: string}}
  */
 export const NAVIGATION_PATH = {
-  TOP: `/`,
-  DETAIL: `/detail/`,
-  CREATE: `/create`,
-  EDIT: `/edit/`
+  TOP: `${BASE_PATH}/`,
+  DETAIL: `${BASE_PATH}/detail/`,
+  CREATE: `${BASE_PATH}/create`,
+  EDIT: `${BASE_PATH}/edit/`
 }
