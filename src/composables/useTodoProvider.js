@@ -30,16 +30,16 @@ export const useTodoProvider = () => {
   }
 
   const handleUpdateTodo = (targetId, title, content) => {
-    const targetTodo = originTodoList.value.find((todo) => String(todo.id) === targetId)
-    const todoIndex = originTodoList.value.findIndex((todo) => String(todo.id) === targetId)
-
-    if (targetTodo) {
-      originTodoList.value.splice(todoIndex, 1, {
-        id: targetId,
-        title: title.trim(),
-        content: content.trim()
-      })
-    }
+    originTodoList.value = originTodoList.value.map((todo) => {
+      if (String(todo.id) === targetId) {
+        return {
+          ...todo,
+          title: title.trim(),
+          content: content.trim()
+        }
+      }
+      return todo
+    })
   }
 
   const handleDeleteTodo = (targetId, targetTitle) => {
