@@ -29,6 +29,19 @@ export const useTodoProvider = () => {
     }
   }
 
+  const handleUpdateTodo = (targetId, title, content) => {
+    const targetTodo = originTodoList.value.find((todo) => String(todo.id) === targetId)
+    const todoIndex = originTodoList.value.findIndex((todo) => String(todo.id) === targetId)
+
+    if (targetTodo) {
+      originTodoList.value.splice(todoIndex, 1, {
+        id: targetId,
+        title: title.trim(),
+        content: content.trim()
+      })
+    }
+  }
+
   const handleDeleteTodo = (targetId, targetTitle) => {
     if (window.confirm(`「${targetTitle}」を削除しますか？`)) {
       const newTodoList = originTodoList.value.filter((todo) => {
@@ -43,6 +56,7 @@ export const useTodoProvider = () => {
     showTodoList,
     searchKeyword,
     handleAddTodo,
+    handleUpdateTodo,
     handleDeleteTodo
   }
 }

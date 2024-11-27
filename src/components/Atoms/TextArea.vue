@@ -6,7 +6,7 @@ defineProps({
   },
   modelValue: {
     type: String,
-    default: ''
+    required: true
   },
   name: {
     type: String,
@@ -14,7 +14,7 @@ defineProps({
   },
   placeholder: {
     type: String,
-    default: ''
+    required: true
   }
 })
 
@@ -22,7 +22,14 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <textarea :disabled="disabled" class="text" :name="name" :value="modelValue" :placeholder="placeholder" />
+  <textarea
+    :disabled="disabled"
+    class="text"
+    :name="name"
+    :value="modelValue"
+    :placeholder="placeholder"
+    @input="$emit('update:modelValue', $event.target.value)"
+  />
 </template>
 
 <style scoped>

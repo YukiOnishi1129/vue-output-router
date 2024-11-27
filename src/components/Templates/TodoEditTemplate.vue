@@ -1,5 +1,5 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import BaseLayout from '../Organisms/BaseLayout.vue'
 import InputForm from '../Atoms/InputForm.vue'
@@ -11,22 +11,15 @@ const route = useRoute()
 const todoId = route.params.id
 
 const originTodoList = inject('originTodoList')
+const handleUpdateTodo = inject('handleUpdateTodo')
 const todo = originTodoList.value.find((todo) => String(todo.id) === todoId)
+
+const showTitle = ref(todo?.title || '')
+const showContent = ref(todo?.content || '')
 
 const handleSubmitUpdateTodo = (e) => {
   e.preventDefault()
-  const formElements = e.target.elements
-  const updatedTodo = {
-    id: todo.id,
-    title: formElements.title.value,
-    content: formElements.content.value
-  }
-  originTodoList.value = originTodoList.value.map((todo) => {
-    if (todo.id === updatedTodo.id) {
-      return updatedTodo
-    }
-    return todo
-  })
+  handleUpdateTodo(todoId, showTitle.value, showContent.value)
   router.push('/')
 }
 </script>
@@ -35,10 +28,10 @@ const handleSubmitUpdateTodo = (e) => {
   <BaseLayout title="Edit Todo" @submit.prevent="handleSubmitUpdateTodo">
     <form class="container">
       <div class="area">
-        <InputForm v-model="todo.title" name="title" placeholder="Title" />
+        <InputForm v-model="showTitle" name="title" placeholder="Title" />
       </div>
       <div class="area">
-        <TextArea v-model="todo.content" name="content" placeholder="Content" />
+        <TextArea v-model="showContent" name="content" placeholder="Content" />
       </div>
       <div class="area">
         <CommonButton type="submit" label="Update" />
