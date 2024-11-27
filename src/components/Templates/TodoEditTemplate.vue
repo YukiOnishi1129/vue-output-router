@@ -14,12 +14,10 @@ const originTodoList = inject('originTodoList')
 const handleUpdateTodo = inject('handleUpdateTodo')
 const todo = originTodoList.value.find((todo) => String(todo.id) === todoId)
 
-const showTitle = ref(todo?.title || '')
-const showContent = ref(todo?.content || '')
-
 const handleSubmitUpdateTodo = (e) => {
   e.preventDefault()
-  handleUpdateTodo(todoId, showTitle.value, showContent.value)
+  const formElements = e.target.elements
+  handleUpdateTodo(todoId, formElements.title.value, formElements.content.value)
   router.push('/')
 }
 </script>
@@ -28,10 +26,10 @@ const handleSubmitUpdateTodo = (e) => {
   <BaseLayout title="Edit Todo" @submit.prevent="handleSubmitUpdateTodo">
     <form class="container">
       <div class="area">
-        <InputForm v-model="showTitle" name="title" placeholder="Title" />
+        <InputForm v-model="todo.title" name="title" placeholder="Title" />
       </div>
       <div class="area">
-        <TextArea v-model="showContent" name="content" placeholder="Content" />
+        <TextArea v-model="todo.content" name="content" placeholder="Content" />
       </div>
       <div class="area">
         <CommonButton type="submit" label="Update" />
