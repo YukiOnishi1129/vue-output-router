@@ -34,8 +34,10 @@ npm run dev
 
 - Todoリスト
   - Todo一覧表示
+  - Todo詳細表示
   - Todo検索処理
   - Todo新規登録処理
+  - Todo更新処理
   - Todo削除処理
 
 ### 2-2. 構成技術
