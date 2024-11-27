@@ -11,11 +11,16 @@ const handleDeleteTodo = inject('handleDeleteTodo')
       <span class="task">{{ todo.title }}</span>
       <div class="area">
         <div class="far">
-          <font-awesome-icon class="far" icon="fa-pen-to-square" />
+          <router-link :to="{ name: 'detail', params: { id: todo.id } }">
+            <font-awesome-icon class="far" icon="fa-circle-info" />
+          </router-link>
         </div>
         <div class="far">
-          <font-awesome-icon class="far" icon="fa-circle-info" />
+          <router-link :to="{ name: 'edit', params: { id: todo.id } }">
+            <font-awesome-icon class="far" icon="fa-pen-to-square" />
+          </router-link>
         </div>
+
         <div class="far">
           <font-awesome-icon class="far" icon="fa-trash" @click="handleDeleteTodo(todo.id, todo.title)" />
         </div>

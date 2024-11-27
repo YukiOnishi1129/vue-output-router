@@ -12,6 +12,16 @@ const router = createRouter({
       path: '/create',
       name: 'create',
       component: () => import('../components/Templates/TodoCreateTemplate.vue')
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: () => import('../components/Templates/TodoEditTemplate.vue')
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: () => import('../components/Templates/TodoDetailTemplate.vue')
     }
   ]
 })
